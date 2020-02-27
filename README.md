@@ -11,6 +11,7 @@ a basic Flashcard app that can:
 ### App Walk-though
 
 <img src="https://github.com/SusanNiu/Flash-Go._2020/blob/master/FlashGo!2020.gif" width=200><br>
+<img src="https://github.com/SusanNiu/Flash-Go._2020/blob/master/FlashGo!2020.gif" width=200><br>
 
 ## Required
 - [x] Create New Project in Android Studio
