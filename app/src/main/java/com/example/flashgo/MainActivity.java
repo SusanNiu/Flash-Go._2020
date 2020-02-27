@@ -12,6 +12,8 @@ import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean isShowingOptions = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +38,12 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.flashcard_answer2).setBackgroundColor(getResources().getColor(R.color.my_red_color, null));
             }
         });
-
         findViewById(R.id.flashcard_answer3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.flashcard_answer3).setBackgroundColor(getResources().getColor(R.color.my_red_color, null));
             }
         });
-
         findViewById(R.id.flashcard_answer4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,11 +51,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       findViewById(R.id.toggle_choices_visibility).setOnClickListener(new View.OnClickListener() {
+        // 6TH Feature
+        findViewById(R.id.toggle_choices_visibility).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findViewById(R.id.toggle_choices_visibility).setImageResource(R.drawable.hide_icon);
+                if (isShowingOptions) {
+                    ((ImageView) (findViewById(R.id.toggle_choices_visibility))).setImageResource(R.drawable.hide_icon_foreground);
+                    toggleOptions();
+                } else {
+                    ((ImageView) (findViewById(R.id.toggle_choices_visibility))).setImageResource(R.drawable.hide_icon_background);
+                    toggleOptions();
+                }
+                isShowingOptions = !isShowingOptions;
             }
         });
+    }
+
+    private void toggleOptions() {
+        int visibility = isShowingOptions ? View.INVISIBLE : View.VISIBLE;
+        findViewById(R.id.flashcard_answer2).setVisibility(visibility);
+        findViewById(R.id.flashcard_answer3).setVisibility(visibility);
+        findViewById(R.id.flashcard_answer4).setVisibility(visibility);
     }
 }
