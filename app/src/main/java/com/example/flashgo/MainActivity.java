@@ -3,6 +3,8 @@ package com.example.flashgo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
             }
         });/**/
-        findViewById(R.id.flashcard_answer2).setOnClickListener(new View.OnClickListener() {
+        /*findViewById(R.id.flashcard_answer2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.flashcard_answer2).setBackgroundColor(getResources().getColor(R.color.my_red_color, null));
@@ -50,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.flashcard_answer4).setBackgroundColor(getResources().getColor(R.color.my_green_color, null));
             }
         });
-
+*/
         // 6TH Feature
-        findViewById(R.id.toggle_choices_visibility).setOnClickListener(new View.OnClickListener() {
+        /*findViewById(R.id.toggle_choices_visibility).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isShowingOptions) {
@@ -71,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
         int visibility = isShowingOptions ? View.INVISIBLE : View.VISIBLE;
         findViewById(R.id.flashcard_answer2).setVisibility(visibility);
         findViewById(R.id.flashcard_answer3).setVisibility(visibility);
-        findViewById(R.id.flashcard_answer4).setVisibility(visibility);
+        findViewById(R.id.flashcard_answer4).setVisibility(visibility);/**/
+       findViewById(R.id.myAdd).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
+               MainActivity.this.startActivity(intent);
+           }
+       });
+
+
     }
 }
