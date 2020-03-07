@@ -7,7 +7,7 @@ Android Studio project
 pass data around within the app
 
 ### App Walk-though
-<img src="YOUR_GIF_URL_HERE" width=200><br>
+<img src="https://github.com/SusanNiu/Flash-Go._2020/blob/master/FlashGo!2020.UpdatesLab2.gif" width=200><br>
 
 
 ## Required
