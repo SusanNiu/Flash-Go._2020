@@ -15,14 +15,18 @@ import android.widget.ToggleButton;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity<flashcardDatabase, allFlashcards> extends AppCompatActivity {
+
+    private FlashcardDatabase flashcardDatabase;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        flashcardDatabase = new FlashcardDatabase(getApplicationContext());
+
+        flashcardDatabase = new FlashcardDatabase(this);
         allFlashcards = flashcardDatabase.getAllCards();
 
         if (allFlashcards != null && allFlashcards.size() > 0) {
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivityForResult(intent, 100);
             }
         });
-        findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
+       /* findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentCardDisplayedIndex++;
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.flashcard_answer1)).setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
             }
         });
-
+*/
 
     }
 
@@ -119,9 +123,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    FlashcardDatabase flashcardDatabase;
     List<Flashcard> allFlashcards;
+
     int currentCardDisplayedIndex = 0;
 
 
