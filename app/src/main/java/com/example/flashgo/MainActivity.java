@@ -10,17 +10,27 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
-    boolean isShowingOptions = true;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*findViewById(R.id.flashcard_question).setOnClickListener(new View.OnClickListener() {
+
+        flashcardDatabase = new FlashcardDatabase(getApplicationContext());
+        allFlashcards = flashcardDatabase.getAllCards();
+
+        if (allFlashcards != null && allFlashcards.size() > 0) {
+            ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(0).getQuestion());
+            ((TextView) findViewById(R.id.flashcard_answer1)).setText(allFlashcards.get(0).getAnswer());
+        }
+
+        findViewById(R.id.flashcard_question).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
@@ -33,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.flashcard_question).setVisibility(View.VISIBLE);
                 findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
             }
-        });/**/
+        });
         /*findViewById(R.id.flashcard_answer2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,14 +84,46 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.flashcard_answer2).setVisibility(visibility);
         findViewById(R.id.flashcard_answer3).setVisibility(visibility);
         findViewById(R.id.flashcard_answer4).setVisibility(visibility);/**/
-       findViewById(R.id.myAdd).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
-               MainActivity.this.startActivity(intent);
-           }
-       });
+        findViewById(R.id.myAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
+                MainActivity.this.startActivityForResult(intent, 100);
+            }
+        });
+        findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentCardDisplayedIndex++;
+                if(currentCardDisplayedIndex > allFlashcards.size() - 1) {
+                    currentCardDisplayedIndex = 0;
+                }
+                ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+                ((TextView) findViewById(R.id.flashcard_answer1)).setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+            }
+        });
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            String string1 = data.getExtras().getString("string1");
+            String string2 = data.getExtras().getString("string2");
+            ((TextView) findViewById(R.id.flashcard_question)).setText(string1);
+            ((TextView) findViewById(R.id.flashcard_answer1)).setText(string2);
+            flashcardDatabase.insertCard(new Flashcard(string1, string2));
+            allFlashcards = flashcardDatabase.getAllCards();
+
+        }
+
+    }
+
+    FlashcardDatabase flashcardDatabase;
+    List<Flashcard> allFlashcards;
+    int currentCardDisplayedIndex = 0;
+
+
 }
+
